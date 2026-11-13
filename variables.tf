@@ -143,5 +143,13 @@ EOT
       }))
     }))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.people : (
+        v.political_exposure == null || (contains(["existing", "none"], v.political_exposure))
+      )
+    ])
+    error_message = "must be one of: \"existing\", \"none\""
+  }
 }
 
